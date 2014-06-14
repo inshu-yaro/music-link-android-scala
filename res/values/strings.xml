@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="red">Red alert!</string>
-    <string name="app_id">735435546497941</string>
+    <string name="app_id">1454989171415432</string>
 	<string name="app_name">Music Link</string>
     <string name="facebook_login">
         Facebookと連帯しても、ご本人が希望しない限りタイムラインに情報は流しません。

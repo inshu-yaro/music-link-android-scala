@@ -36,3 +36,4 @@ scalacOptions in Compile ++= Seq(
 run <<= run in Android
 
 install <<= install in Android
+

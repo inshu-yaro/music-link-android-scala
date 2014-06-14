@@ -9,13 +9,13 @@ class MusicLinkApp extends Application with Logger {
     info("Initializing app")
 
      val permissions = Array(
-      Permission.USER_PHOTOS,
-      Permission.EMAIL
+       Permission.USER_PHOTOS,
+       Permission.EMAIL
      )
 
     val facebookConfig = new SimpleFacebookConfiguration.Builder()
       .setAppId(getResources.getString(R.string.app_id))
-      .setNamespace("musiclink_inshu")
+      .setNamespace("musiclink-app")
       .setPermissions(permissions)
       .build()
 
