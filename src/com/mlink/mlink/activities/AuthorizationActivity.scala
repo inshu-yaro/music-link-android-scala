@@ -34,9 +34,6 @@ class AuthorizationActivity extends SActivity with Logger {
       facebook.authorize(this, new DialogListener {
         override def onComplete(p1: Bundle): Unit = {
           //new AsyncHttpRequest(null).execute()
-          future{
-
-          }
         }
 
         override def onFacebookError(p1: FacebookError): Unit = {
@@ -53,7 +50,7 @@ class AuthorizationActivity extends SActivity with Logger {
       })
     }
 
-    class MyActor extends
+    //class MyActor extends
 
     /*class AsyncHttpRequest (argActivity:SActivity)extends AsyncTask[String, Unit, Option[JSONArray]] {
       private val activity: SActivity = argActivity

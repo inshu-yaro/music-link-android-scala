@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/play_menu_button"
+          android:icon="@drawable/play_all"
+          android:title="Play All"
+          android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/search_menu_button"
+          android:icon="@drawable/search"
+          android:title="Search"
+          android:showAsAction="ifRoom" />
+
+</menu>
