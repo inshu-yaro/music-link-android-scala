@@ -17,6 +17,7 @@ class PlayerActivity extends SActivity with util.Logger with SongReader {
   onCreate {
     setContentView(R.layout.player_activity)
     find[SListView](R.id.player_list_view).setAdapter(getAdapter)
+    startActivity[LoginActivity]
   }
 
   def getAdapter =

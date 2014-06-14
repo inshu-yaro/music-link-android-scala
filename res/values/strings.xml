@@ -3,4 +3,9 @@
 	<string name="red">Red alert!</string>
     <string name="app_id">735435546497941</string>
 	<string name="app_name">Music Link</string>
+    <string name="facebook_login">
+        Facebookと連帯しても、ご本人が希望しない限りタイムラインに情報は流しません。
+    </string>
+    <string name="catch_phrase">音楽から始まる出会い。</string>
+    <string name="top_explanation">あなたの再生した曲から、共通の趣味嗜好の合う人をマッチングします。</string>
 </resources>
