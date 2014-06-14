@@ -6,15 +6,16 @@
     <uses-sdk android:minSdkVersion="14"
               android:targetSdkVersion="19" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application android:label="@string/app_name" >
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
-        <activity android:name=".activities.PlayerActivity"
+        <activity android:name=".activities.AuthorizationActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.facebook.LoginActivity"/>
+        <!--activity android:name="com.facebook.LoginActivity"/-->
     </application>
 </manifest>
