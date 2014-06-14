@@ -3,7 +3,7 @@ package com.mlink.mlink.services
 import android.media.MediaPlayer
 import android.media.MediaPlayer.OnCompletionListener
 import com.mlink.mlink.models._
-import org.scaloid.common.{SContext, LocalService}
+import org.scaloid.common.LocalService
 
 
 class MLPService extends LocalService {
