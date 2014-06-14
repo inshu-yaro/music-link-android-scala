@@ -1,8 +1,10 @@
 package com.mlink.mlink.models
 
-class Playlist(songs: List[Song]) {
+class Playlist(songs: List[Song]) extends Iterable[Song] {
   private var _currentSong: Option[Song] = None
   private var currentSongPosition: Int = -1
+
+  override def iterator = songs.iterator
 
   def nextSong(): Option[Song] =
     if (currentSongPosition + 1 < songs.length) {

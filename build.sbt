@@ -11,13 +11,24 @@ proguardCache in Android ++= Seq(
   ProguardCache("org.scaloid") % "org.scaloid"
 )
 
-proguardOptions in Android ++= Seq("-dontobfuscate", "-dontoptimize", "-dontwarn scala.collection.mutable.**")
+proguardOptions in Android ++= Seq(
+  "-dontobfuscate",
+  "-dontoptimize",
+  "-dontwarn scala.collection.mutable.**",
+  "-keep public class org.scaloid.**"
+)
 
-libraryDependencies += "org.scaloid" %% "scaloid" % "3.4-10"
+libraryDependencies ++= Seq(
+  "org.scaloid" %% "scaloid" % "3.4-10",
+  "com.android.support" % "support-v4" % "13.0.+"
+)
 
 libraryDependencies += aar("com.facebook" % "facebook-android-sdk" % "3.5.2")
 
-scalacOptions in Compile += "-feature"
+scalacOptions in Compile ++= Seq(
+  "-feature",
+  "-language:postfixOps"
+)
 
 run <<= run in Android
 
