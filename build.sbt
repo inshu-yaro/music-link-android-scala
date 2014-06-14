@@ -15,7 +15,9 @@ proguardOptions in Android ++= Seq(
   "-dontobfuscate",
   "-dontoptimize",
   "-dontwarn scala.collection.mutable.**",
-  "-keep public class org.scaloid.**"
+  "-keep public class org.scaloid.**",
+  "-keep class com.facebook.** { *; }",
+  "-dontwarn com.facebook.**"
 )
 
 libraryDependencies ++= Seq(
