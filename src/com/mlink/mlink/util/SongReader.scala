@@ -27,7 +27,7 @@ object SongReader {
     val songs = cursor.closeAfter(_.map(c =>
       new Song(
         c.getString(c.getColumnIndex(MediaStore.MediaColumns.TITLE)),
-        c.getString(0)
+        c.getString(1)
       )
     ))
     new Playlist(songs toList)
