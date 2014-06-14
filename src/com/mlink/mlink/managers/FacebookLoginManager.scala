@@ -12,6 +12,8 @@ import java.io.InputStream
 import org.apache.commons.io.IOUtils
 import android.content.Intent
 import org.scaloid.common.SActivity
+import scala.concurrent.future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * Created by kazuya on 14/06/15.
@@ -40,7 +42,7 @@ class FacebookLoginManager {
                 val instream: InputStream = entity.getContent()
                 result = IOUtils.toString(instream)
                 //result = convertStreamToString(instream)
-                debug(result)
+                //debug(result)
               }
             }
           }
@@ -98,10 +100,10 @@ class FacebookLoginManager {
 
   }
 
-  override def onActivityResult(requestCode:Int, resultCode:Int, data:Intent){
+  /*override def onActivityResult(requestCode:Int, resultCode:Int, data:Intent){
     super.onActivityResult(requestCode, resultCode, data)
     facebook.authorizeCallback(requestCode, resultCode, data)
-  }
+  }*/
   /*  private def loginFacebook() {
       var openRequest : OpenRequest = new OpenRequest(this).setCallback(mFacebookCallback)
       openRequest.setPermissions()
