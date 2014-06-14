@@ -12,7 +12,8 @@ trait SongReader extends Logger {
     val songs = sdMusicCursor().closeAfter(_.map(c =>
       new Song(
         c.getString(c.getColumnIndex(MediaStore.MediaColumns.TITLE)),
-        c.getString(1)
+        c.getString(1),
+        c.getString(c.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST))
       )
     ))
     new Playlist(songs toList)
@@ -30,7 +31,8 @@ trait SongReader extends Logger {
     val songs = sdMusicCursor(Some(query)).closeAfter(_.map(c =>
       new Song(
         c.getString(c.getColumnIndex(MediaStore.MediaColumns.TITLE)),
-        c.getString(1)
+        c.getString(1),
+        c.getString(c.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST))
       )
     ))
     new Playlist(songs toList)
