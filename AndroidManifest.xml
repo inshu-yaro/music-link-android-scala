@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <!--activity android:name="com.facebook.LoginActivity"/-->
+=======
+        <service android:name=".services.MLPService"
+                 android:enabled="true" />
+>>>>>>> 63a395ebf9b44d627225bb302a18099bc72bfe49
     </application>
 </manifest>

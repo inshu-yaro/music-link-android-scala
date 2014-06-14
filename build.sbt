@@ -20,7 +20,8 @@ proguardOptions in Android ++= Seq(
 
 libraryDependencies ++= Seq(
   "org.scaloid" %% "scaloid" % "3.4-10",
-  "com.android.support" % "support-v4" % "13.0.+"
+  "com.android.support" % "support-v4" % "13.0.+",
+  "org.apache.commons" % "commons-io" % "1.3.2"
 )
 
 libraryDependencies += aar("com.facebook" % "facebook-android-sdk" % "3.5.2")

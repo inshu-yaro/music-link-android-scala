@@ -20,6 +20,8 @@ import org.apache.http.{HttpEntity, HttpResponse}
 import java.io.{InputStreamReader, BufferedReader, InputStream}
 import com.mlink.mlink.util.Logger
 import android.net.Uri
+import org.apache.commons.io.IOUtils
+import org.json.JSONArray
 
 /**
  * Created by kazuya on 14/06/14.
@@ -31,7 +33,10 @@ class AuthorizationActivity extends SActivity with Logger {
     if (!facebook.isSessionValid) {
       facebook.authorize(this, new DialogListener {
         override def onComplete(p1: Bundle): Unit = {
+          //new AsyncHttpRequest(null).execute()
+          future{
 
+          }
         }
 
         override def onFacebookError(p1: FacebookError): Unit = {
@@ -48,10 +53,12 @@ class AuthorizationActivity extends SActivity with Logger {
       })
     }
 
-    class AsyncHttpRequest (argActivity:SActivity)extends AsyncTask[Uri.Builder, Void, String] {
+    class MyActor extends
+
+    /*class AsyncHttpRequest (argActivity:SActivity)extends AsyncTask[String, Unit, Option[JSONArray]] {
       private val activity: SActivity = argActivity
 
-      override protected def doInBackground(builder: Uri.Builder): String = {
+      override protected def doInBackground(params:String*): String = {
         val client: HttpClient = new DefaultHttpClient()
         val request: HttpGet = new HttpGet("https://developers.facebook.com/docs/graph-api/reference/v2.0/user/me")
         var response: HttpResponse = null
@@ -61,15 +68,15 @@ class AuthorizationActivity extends SActivity with Logger {
           val entity: HttpEntity = response.getEntity()
           if (entity != null) {
             val instream: InputStream = entity.getContent()
-            result = convertStreamToString(instream)
-            debug("RESPOSE : " + result)
+            result = IOUtils.toString(instream)
+            //result = convertStreamToString(instream)
           }
         }
-        return "hoge"
+        return result
       }
-    }
+    }*/
 
-    def convertStreamToString(is: InputStream): String = {
+    /*def convertStreamToString(is: InputStream): String = {
       val reader = new BufferedReader(new InputStreamReader(is));
       val sb = new StringBuilder();
 
@@ -89,7 +96,7 @@ class AuthorizationActivity extends SActivity with Logger {
       }
 
       sb.toString();
-    }
+    }*/
   }
 
   override def onActivityResult(requestCode:Int, resultCode:Int, data:Intent){
