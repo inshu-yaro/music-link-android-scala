@@ -2,26 +2,29 @@ package com.mlink.mlink.activities
 
 import org.scaloid.common.SActivity
 import com.facebook.Session.{StatusCallback, OpenRequest}
-import android.view.textservice.{SuggestionsInfo, TextInfo}
-import android.service.textservice.SpellCheckerService.Session
+import _root_.android.view.textservice.{SuggestionsInfo, TextInfo}
+import _root_.android.service.textservice.SpellCheckerService.Session
 import com.facebook
-import com.facebook.{FacebookGraphObjectException, Request, SessionState, Response}
+import com.facebook._
 import com.facebook.model.GraphUser
-import android.app.{Activity, ProgressDialog}
-import android.util.Log
-import android.os.{AsyncTask, Bundle}
+import _root_.android.app.{Activity, ProgressDialog}
+import _root_.android.util.Log
+import _root_.android.os.{AsyncTask, Bundle}
 import com.facebook.android.{FacebookError, DialogError, Facebook}
 import com.facebook.android.Facebook.DialogListener
-import android.content.Intent
+import _root_.android.content.Intent
 import org.apache.http.client.HttpClient
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.{HttpEntity, HttpResponse}
 import java.io.{InputStreamReader, BufferedReader, InputStream}
 import com.mlink.mlink.util.Logger
-import android.net.Uri
+import _root_.android.net.Uri
 import org.apache.commons.io.IOUtils
 import org.json.JSONArray
+import scala.concurrent.future
+import scala.concurrent.ExecutionContext.Implicits.global
+import com.facebook.Request.Callback
 
 /**
  * Created by kazuya on 14/06/14.
@@ -34,6 +37,39 @@ class AuthorizationActivity extends SActivity with Logger {
       facebook.authorize(this, new DialogListener {
         override def onComplete(p1: Bundle): Unit = {
           //new AsyncHttpRequest(null).execute()
+
+          future{
+            val client: HttpClient = new DefaultHttpClient()
+            val request: HttpGet = new HttpGet("https://developers.facebook.com/docs/graph-api/reference/v2.0/user/me")
+            //val request: HttpGet = new HttpGet("http://graph.facebook.com/me")
+            //request.addHeader("Content-Type", "application/json")
+            var response: HttpResponse = null
+            var result: String = null
+            try {
+              response = client.execute(request)
+              val entity: HttpEntity = response.getEntity()
+              if (entity != null) {
+                val instream: InputStream = entity.getContent()
+                result = IOUtils.toString(instream)
+                //result = convertStreamToString(instream)
+                debug(result)
+              }
+            }
+          }
+          /*val json:String = facebook.request("me")
+          debug(json)*/
+
+          /*new Request(facebook,
+            "/me",
+            null,
+            HttpMethod.GET,
+            new Callback() {
+              def onCompleted(response:Response) {
+                /* handle the result */
+              }
+            }
+          ).executeAsync()*/
+
         }
 
         override def onFacebookError(p1: FacebookError): Unit = {
@@ -50,7 +86,9 @@ class AuthorizationActivity extends SActivity with Logger {
       })
     }
 
+
     //class MyActor extends
+
 
     /*class AsyncHttpRequest (argActivity:SActivity)extends AsyncTask[String, Unit, Option[JSONArray]] {
       private val activity: SActivity = argActivity
