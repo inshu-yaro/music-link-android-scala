@@ -3,12 +3,13 @@ package activities
 
 import android.view.Menu
 import com.mlink.mlink.adapters.{PlaylistAdapter, ArtistAdapter}
+import com.mlink.mlink.managers.UserManager
 import com.mlink.mlink.services.MLPService
 import com.mlink.mlink.util.SongReader
 import org.scaloid.common._
 
 
-class PlayerActivity extends SActivity with util.Logger with SongReader {
+class PlayerActivity extends SActivity with util.Logger with SongReader with UserManager {
   implicit val playerService: LocalServiceConnection[MLPService] = new LocalServiceConnection[MLPService]
 
   lazy val artist = getIntent.getStringExtra("ARTIST_NAME")
@@ -16,8 +17,11 @@ class PlayerActivity extends SActivity with util.Logger with SongReader {
 
   onCreate {
     setContentView(R.layout.player_activity)
+    info(userInfo.toString)
     find[SListView](R.id.player_list_view).setAdapter(getAdapter)
-    startActivity[UserLoginActivity]
+    if (!userHasInfo) {
+      startActivity[UserLoginActivity]
+    }
   }
 
   def getAdapter =
