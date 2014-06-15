@@ -7,13 +7,10 @@ import android.view.MenuItem.OnMenuItemClickListener
 import android.view.{MenuItem, View, Menu}
 import android.widget.{TextView, RelativeLayout, ImageButton}
 import com.mlink.mlink.adapters.{PlaylistAdapter, ArtistAdapter}
-import com.mlink.mlink.managers.{NotificatoinManager, UserManager}
 import com.mlink.mlink.managers.UserManager
 import com.mlink.mlink.models.Song
 import com.mlink.mlink.services.MLPService
 import com.mlink.mlink.util.SongReader
-import org.json4s.NoTypeHints
-import org.json4s.native.Serialization
 import org.json4s.native.Serialization.write
 import org.scaloid.common._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -35,6 +32,8 @@ class PlayerActivity extends SActivity with util.Logger with SongReader with Use
     if (showingSongs) {
       setupControlBar()
     }
+    val partnerData = Map("firstName" -> "Foo", "lastName" -> "Bar", "id" -> "10154287442140096")
+    startActivity(SIntent[ChatActivity].putExtra("partner_info", write(partnerData)))
   }
 
   override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
