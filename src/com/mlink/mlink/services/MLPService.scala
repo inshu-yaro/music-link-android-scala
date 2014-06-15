@@ -19,17 +19,18 @@ class MLPService extends LocalService with Logger {
   def playing: Boolean = _playing
 
   def playPrevious(): Unit = {
-    val nextSong = mode match {
-      case NormalMode => playList.flatMap(p => p.nextSong())
+    val previousSong = mode match {
+      case NormalMode => playList.flatMap(p => p.previousSong())
       case RepeatOne  =>  playList.flatMap(p => p.currentSong)
-      case RepeatAll  => playList.flatMap(p => p.nextOrFirst())
+      case RepeatAll  => playList.flatMap(p => p.previousOrLast())
     }
-    nextSong match {
+    previousSong match {
       case Some(song) => playSong(song)
       case None =>  // TODO: maybe notify?
     }
   }
 
+  // FIXME: duplicated code
   def playNext(): Unit = {
     val nextSong = mode match {
       case NormalMode => playList.flatMap(p => p.nextSong())
@@ -52,6 +53,11 @@ class MLPService extends LocalService with Logger {
     }
   }
 
+  def runPlaylist(list: Playlist) = {
+    playList = Some(list)
+    playNext()
+  }
+
   def playSong(song: Song): Unit = {
     mediaPlayer.reset()
     mediaPlayer.setDataSource(song.path)
@@ -69,7 +75,6 @@ class MLPService extends LocalService with Logger {
   }
 
   def setOnStart(f: Song => Unit) = {
-    info("setOnStart")
     onStart = Some(f)
   }
 
