@@ -2,7 +2,6 @@ package com.mlink.mlink.util
 
 import android.content.{Context, CursorLoader}
 import android.provider.MediaStore
-import android.util.Log
 import com.mlink.mlink.models.{Song, Playlist}
 import org.scaloid.common.RichCursor
 import org.scaloid.common.Implicits._

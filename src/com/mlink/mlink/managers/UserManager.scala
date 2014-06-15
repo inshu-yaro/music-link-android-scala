@@ -18,7 +18,7 @@ import org.json4s.native.JsonMethods._
 
 import scala.collection.JavaConversions._
 
-trait UserManager extends Logger { this: Activity =>
+trait UserManager extends Logger with HttpManager { this: Activity =>
   implicit val formats = Serialization.formats(NoTypeHints)
 
   lazy val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -69,7 +69,6 @@ trait UserManager extends Logger { this: Activity =>
   }
 
   private def sendUserData(data: String) = {
-
-
+    post("/users/enroll", data)
   }
 }
