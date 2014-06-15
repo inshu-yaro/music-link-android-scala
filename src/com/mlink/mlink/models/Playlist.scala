@@ -8,15 +8,13 @@ class Playlist(val songs: List[Song]) extends Iterable[Song] {
 
   def apply(index: Int) = songs(index)
 
+  def previousSong(): Option[Song] =
+    if (currentSongPosition > 0) toTrack(currentSongPosition - 1)
+    else None
+
   def nextSong(): Option[Song] =
-    if (currentSongPosition + 1 < songs.length) {
-      currentSongPosition += 1
-      _currentSong = Some(songs(currentSongPosition))
-      currentSong
-    } else {
-      _currentSong = None
-      None
-    }
+    if (currentSongPosition + 1 < songs.length) toTrack(currentSongPosition + 1)
+    else None
 
   def reset(): Option[Song] = {
     currentSongPosition = -1
@@ -25,10 +23,19 @@ class Playlist(val songs: List[Song]) extends Iterable[Song] {
   }
 
   def nextOrFirst(): Option[Song] = nextSong() match {
-    case None =>
-      reset()
-      nextSong()
+    case None => toTrack(0)
     case s => s
+  }
+
+  def previousOrLast(): Option[Song] = previousSong() match {
+    case None => toTrack(songs.size - 1)
+    case s => s
+  }
+
+  def toTrack(n: Int): Option[Song] = {
+    currentSongPosition = n
+    _currentSong = if (songs.isDefinedAt(currentSongPosition)) Some(songs(currentSongPosition)) else None
+    currentSong
   }
 
   def currentSong: Option[Song] = _currentSong

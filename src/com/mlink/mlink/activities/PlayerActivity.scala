@@ -1,7 +1,8 @@
 package com.mlink.mlink
 package activities
 
-import android.view.Menu
+import android.view.{View, Menu}
+import android.widget.{TextView, RelativeLayout, ImageButton}
 import com.mlink.mlink.adapters.{PlaylistAdapter, ArtistAdapter}
 import com.mlink.mlink.managers.UserManager
 import com.mlink.mlink.services.MLPService
@@ -22,6 +23,22 @@ class PlayerActivity extends SActivity with util.Logger with SongReader with Use
     if (!userHasInfo) {
       startActivity[UserLoginActivity]
     }
+    if (showingSongs) {
+      setupControlBar()
+    }
+  }
+
+  private def setupControlBar() = {
+    find[ImageButton](R.id.bar_next_button).onClick(playerService(s => s.playNext()))
+    find[ImageButton](R.id.bar_previous_button).onClick(playerService(s => s.playPrevious()))
+    find[ImageButton](R.id.bar_play_pause_button).onClick(playerService(s => s.togglePause()))
+    playerService.onConnected(s => s.setOnStart(song => {
+        info("runing start song callback")
+        find[RelativeLayout](R.id.control_bar_layout).visibility(View.VISIBLE)
+        find[TextView](R.id.bar_title_text).text(song.title)
+        find[TextView](R.id.bar_artist_text).text(song.artist)
+      })
+    )
   }
 
   def getAdapter =

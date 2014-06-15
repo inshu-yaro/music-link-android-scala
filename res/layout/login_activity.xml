@@ -28,7 +28,7 @@
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView" android:layout_gravity="center_horizontal" android:src="@drawable/login02"
+                android:id="@+id/bar_coverart" android:layout_gravity="center_horizontal" android:src="@drawable/login02"
                 android:layout_marginTop="25dp"/>
     </LinearLayout>
     <LinearLayout
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/facebook_login"
-                android:id="@+id/textView" android:layout_gravity="center_horizontal" android:textColor="#505050"
+                android:id="@+id/bar_title_text" android:layout_gravity="center_horizontal" android:textColor="#505050"
                 android:paddingLeft="40dp" android:paddingRight="40dp" android:textSize="14dp"/>
     </LinearLayout>
 </LinearLayout>
