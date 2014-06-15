@@ -14,6 +14,8 @@ import com.mlink.mlink.util.SongReader
 import org.json4s.native.Serialization.write
 import org.scaloid.common._
 import scala.concurrent.ExecutionContext.Implicits.global
+import org.json4s.native.JsonMethods._
+import scala.Some
 
 class PlayerActivity extends SActivity with util.Logger with SongReader with UserManager {
   implicit val playerService: LocalServiceConnection[MLPService] = new LocalServiceConnection[MLPService]
@@ -59,6 +61,12 @@ class PlayerActivity extends SActivity with util.Logger with SongReader with Use
       val data = Map("music" -> song.title, "artist" -> song.artist, "token" -> info("token"))
       post("/music/play", write(data)) onSuccess {
         case response => println(response.isSuccessful.toString)
+        if(response != null){
+          val info = response.body().string()
+          val json = parse(info)
+          Some(json.extract[Map[String, String]])
+
+        }
       }
     }
   }

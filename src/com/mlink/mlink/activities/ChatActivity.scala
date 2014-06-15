@@ -7,15 +7,18 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener
 import org.json4s.NoTypeHints
 import org.json4s.native.Serialization
-import org.scaloid.common.SActivity
+import org.scaloid.common.{SContext, SActivity}
 import android.view.{View, MenuItem, MenuInflater, Menu}
 import com.mlink.mlink.R
 
 import org.json4s.native.JsonMethods._
+import com.mlink.mlink.managers.NotificatoinManager
+import android.app.NotificationManager
+
 /**
  * Created by kazuya on 14/06/15.
  */
-class ChatActivity extends SActivity with Logger {
+class ChatActivity extends SActivity with Logger with SContext {
   implicit val formats = Serialization.formats(NoTypeHints)
 
   lazy val imageLoader = ImageLoader.getInstance()
