@@ -1,17 +1,22 @@
 package com.mlink.mlink
 package activities
 
+import android.app.Activity
+import android.content.Intent
 import android.view.MenuItem.OnMenuItemClickListener
 import android.view.{MenuItem, View, Menu}
 import android.widget.{TextView, RelativeLayout, ImageButton}
 import com.mlink.mlink.adapters.{PlaylistAdapter, ArtistAdapter}
 import com.mlink.mlink.managers.{NotificatoinManager, UserManager}
 import com.mlink.mlink.managers.UserManager
-import com.mlink.mlink.models.Playlist
+import com.mlink.mlink.models.Song
 import com.mlink.mlink.services.MLPService
 import com.mlink.mlink.util.SongReader
+import org.json4s.NoTypeHints
+import org.json4s.native.Serialization
+import org.json4s.native.Serialization.write
 import org.scaloid.common._
-
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class PlayerActivity extends SActivity with util.Logger with SongReader with UserManager {
   implicit val playerService: LocalServiceConnection[MLPService] = new LocalServiceConnection[MLPService]
@@ -25,11 +30,16 @@ class PlayerActivity extends SActivity with util.Logger with SongReader with Use
     info(userInfo.toString)
     find[SListView](R.id.player_list_view).setAdapter(getAdapter)
     if (!userHasInfo) {
-      startActivity[UserLoginActivity]
+      startActivityForResult(SIntent[UserLoginActivity], 0)
     }
     if (showingSongs) {
       setupControlBar()
     }
+  }
+
+  override def onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode != Activity.RESULT_OK) finish()
   }
 
   private def setupControlBar() = {
@@ -40,8 +50,18 @@ class PlayerActivity extends SActivity with util.Logger with SongReader with Use
         find[RelativeLayout](R.id.control_bar_layout).visibility(View.VISIBLE)
         find[TextView](R.id.bar_title_text).text(song.title)
         find[TextView](R.id.bar_artist_text).text(song.artist)
+        postStats(song)
       })
     )
+  }
+
+  private def postStats(song: Song) = {
+    userInfo.foreach { info =>
+      val data = Map("music" -> song.title, "artist" -> song.artist, "token" -> info("token"))
+      post("/music/play", write(data)) onSuccess {
+        case response => println(response.isSuccessful.toString)
+      }
+    }
   }
 
   def getAdapter =

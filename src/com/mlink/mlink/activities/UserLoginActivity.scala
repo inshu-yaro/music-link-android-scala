@@ -1,5 +1,6 @@
 package com.mlink.mlink.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.widget.ImageButton
 import com.facebook.Session
@@ -14,6 +15,7 @@ class UserLoginActivity extends SActivity with UserManager {
     setContentView(R.layout.login_activity)
 
     find[ImageButton](R.id.login_button).onClick(loginUser { _ =>
+      setResult(Activity.RESULT_OK)
       finish()
     })
   }
