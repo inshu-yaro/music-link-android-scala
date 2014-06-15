@@ -3,4 +3,6 @@
     <color name="actionbar_text">#4cebeb</color>
     <color name="actionbar_bg">#f2ffff</color>
     <color name="text">#ffffff</color>
+    <color name="alert_text">#505050</color>
+    <color name="alert_bg">#dee2e3</color>
 </resources>

@@ -30,9 +30,14 @@ trait UserManager extends Logger { this: Activity =>
         FBRequest.newMeRequest(session, new GraphUserCallback {
           override def onCompleted(user: GraphUser, response: FBResponse): Unit =  {
             debug("response: " + response.toString)
-            info(user.asMap().toString)
-            saveLoginInfo(user)
-            onSuccess(user)
+            if(user == null){
+              info("user is null.")
+            }else {
+              info(user.asMap().toString)
+              saveLoginInfo(user)
+              onSuccess(user)
+            }
+
           }
         }).executeAsync()
       }

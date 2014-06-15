@@ -21,4 +21,5 @@
            parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
         <item name="android:textColor">@color/actionbar_text</item>
     </style>
+
 </resources>

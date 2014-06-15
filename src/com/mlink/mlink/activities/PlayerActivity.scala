@@ -3,7 +3,7 @@ package activities
 
 import android.view.Menu
 import com.mlink.mlink.adapters.{PlaylistAdapter, ArtistAdapter}
-import com.mlink.mlink.managers.UserManager
+import com.mlink.mlink.managers.{NotificatoinManager, UserManager}
 import com.mlink.mlink.services.MLPService
 import com.mlink.mlink.util.SongReader
 import org.scaloid.common._
